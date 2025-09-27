@@ -10,7 +10,7 @@ The application is composed of three independent services that communicate throu
 
 ```
 ┌──────────────────┐      ┌───────────────┐      ┌──────────────────┐      ┌─────────────────┐      ┌───────────┐
-│   NewsAPI.org    ├─────►│ data_producer.py │───►│   news_stream/   │───►│ main_streaming.py │───►│  results/   │
+│   NewsAPI.org    ├─────►│ data_producer.py │───►│   news_stream/   │───►│ main_streamlit.py  │───►│  results/   │
 │ (Live Headlines) │      │ (Fetches Data)   │    │  (JSON Files)    │     │  (Spark NLP Job)  │    │(Parquet Files)│
 └──────────────────┘      └───────────────┘      └───────────────┘      └──────────────────┘      └──────┬──────┘
                                                                                                         │
@@ -112,7 +112,7 @@ You should see output like: `[YYYY-MM-DD HH:MM:SS] Fetching new headlines...`
 This script listens for new JSON files, performs the sentiment analysis, and writes the results as Parquet files.
 
 ```bash
-python main_streaming.py
+python main_streamlit.py
 ```
 You will see Spark initialization logs, and then it will wait for data: `Spark Streaming job started. Waiting for data...`
 
@@ -136,7 +136,7 @@ This will automatically open a new tab in your web browser. The dashboard will i
 ├── 📂 checkpoint/            # (Auto-created) Directory for Spark to save streaming state.
 │
 ├── 📜 data_producer.py       # Script to fetch news from NewsAPI.
-├── 📜 main_streaming.py      # The PySpark application for NLP processing.
+├── 📜 main_streamlit.py      # The PySpark application for NLP processing.
 ├── 📜 streamlit_app.py       # The Streamlit dashboard application.
 │
 ├── 📜 .env                   # Your local environment file with API keys and paths.
