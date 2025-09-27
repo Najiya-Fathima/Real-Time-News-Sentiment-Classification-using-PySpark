@@ -1,0 +1,6 @@
+python-dotenv
+newsapi-python
+pandas
+streamlit
+matplotlib
+pyspark
