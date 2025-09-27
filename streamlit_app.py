@@ -1,5 +1,3 @@
-# streamlit_app.py (or app.py) - CORRECTED VERSION
-
 import streamlit as st
 import pandas as pd
 import os
@@ -56,8 +54,7 @@ with placeholder.container():
         # --- Metrics ---
         total_headlines = len(df)
         
-        # --- THIS IS THE FIX ---
-        # Use 'pos' and 'neg' to match the data from Spark NLP
+        
         positive_count = df[df['sentiment'] == 'pos'].shape[0]
         negative_count = df[df['sentiment'] == 'neg'].shape[0]
         neutral_count = df[df['sentiment'] == 'neutral'].shape[0]

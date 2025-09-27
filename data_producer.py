@@ -1,12 +1,10 @@
-# data_producer.py
-
 import os
 import time
 import json
 from datetime import datetime
 from dotenv import load_dotenv
 from newsapi import NewsApiClient
-from requests.exceptions import ReadTimeout # Import the specific exception
+from requests.exceptions import ReadTimeout
 
 load_dotenv()
 api_key = os.getenv('NEWS_API')
@@ -23,7 +21,6 @@ print("Starting data producer. Press Ctrl+C to stop.")
 try:
     while True:
         try:
-            # --- This is the new, resilient block ---
             print(f"[{datetime.now()}] Fetching new headlines...")
             top_headlines = newsapi.get_top_headlines(sources='bbc-news')
             

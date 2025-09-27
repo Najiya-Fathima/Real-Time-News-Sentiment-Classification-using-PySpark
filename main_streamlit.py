@@ -1,5 +1,3 @@
-# main_streaming.py (CORRECT VERSION)
-
 import os
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, ArrayType
@@ -32,7 +30,6 @@ stream_df = spark.readStream \
 # Explode the array to create a column named "headline"
 headlines_df = stream_df.select(explode(col("headlines")).alias("headline"))
 
-# Pipeline now uses the "headline" column
 document_assembler = DocumentAssembler().setInputCol("headline").setOutputCol("document")
 tokenizer = Tokenizer().setInputCols(["document"]).setOutputCol("token")
 word_embeddings = WordEmbeddingsModel.pretrained("glove_100d", "en").setInputCols(["document", "token"]).setOutputCol("embeddings")
@@ -41,7 +38,6 @@ sentiment_dl = SentimentDLModel.pretrained("sentimentdl_glove_imdb", "en").setIn
 
 pipeline = Pipeline().setStages([document_assembler, tokenizer, word_embeddings, sentence_embeddings, sentiment_dl])
 
-# Ensure the final output selects the correct "headline" column
 result_stream = pipeline.fit(headlines_df).transform(headlines_df) \
     .select("headline", col("sentiment.result").getItem(0).alias("sentiment"))
 
